@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <title>Rental Property Calculator</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+    <meta name="description" content="Free rental property calculator that uses the formula NPV &#x3D; [CF^1 / (1 + R^1)] - PC. A rental ROI calculator that helps analyze and compare investment rental properties.">
+    <link rel="preload" href="./assets/fonts/inter-v12-latin-regular.woff2" as="font" crossorigin type="font/woff2">
+    <link rel="preload" href="./assets/fonts/inter-v12-latin-500.woff2" as="font" crossorigin type="font/woff2">
+    <link rel="preload" href="./assets/fonts/inter-v12-latin-600.woff2" as="font" crossorigin type="font/woff2">
+    <link rel="preload" href="./assets/fonts/inter-v12-latin-800.woff2" as="font" crossorigin type="font/woff2">
+    <script type="text/javascript">
+        window._ = document.getElementById.bind(document);
+        window.$ = document.querySelector.bind(document);
+        window.$$ = document.querySelectorAll.bind(document);
+        window.defaultSystem = "imperial";
+        localStorage.setItem("theme", "light");
+    </script>
+    <link rel="stylesheet" href="./assets/css/main.min.css" />
+    <script src="./assets/js/all-calculators.js" defer></script>
+</head>
+<body style="background-color: transparent !important; min-height: 0 !important">
+
+<div style="width: 100%;">
+    <div style="width:350px;float:left;padding: 15px;">
+        <div class="calculator-settings">
+            <div class="calculator-setting" id="calculator_form">
+                <div class="calculator-content calculator-content--options col calculator-content--active  "  >
+                	<div class="calculator-content-head  row">
+                		<p class="calculator-content-head__title">Purchase</p>
+                		
+                		<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                	<path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 7.29289C5.68342 6.90237 6.31658 6.90237 6.7071 7.29289L9.99999 10.5858L13.2929 7.29289C13.6834 6.90237 14.3166 6.90237 14.7071 7.29289C15.0976 7.68342 15.0976 8.31658 14.7071 8.70711L10.7071 12.7071C10.3166 13.0976 9.68341 13.0976 9.29289 12.7071L5.29289 8.70711C4.90237 8.31658 4.90237 7.68342 5.29289 7.29289Z" fill="#9CA3AF"></path>
+                </svg>
+                	</div>
+                		<div class="calculator-content-body col">
+                			<div class="input-wrapper row">
+                				<label class="input col   ">
+                					<p class="input__title">Purchase Price</p>
+                					<div class="input-field row">
+                							<span class="input-field__hint">$</span>
+                						<input type="text" class="input-field__input" placeholder="0"  id="purchase_price" value="250000"  />
+                					</div>
+                				
+                				
+                				</label></div>
+                			<div class="input-wrapper row">
+                				<label class="input col   ">
+                					<p class="input__title">Closing Cost</p>
+                					<div class="input-field row">
+                							<span class="input-field__hint">$</span>
+                						<input type="text" class="input-field__input" placeholder="0"  id="closing_cost" value="7000"  />
+                					</div>
+                				
+                				
+                				</label></div>
+                		</div>
+                </div>
+                
+                <div class="calculator-content calculator-content--options col   "  >
+                	<div class="calculator-content-head  row">
+                		<p class="calculator-content-head__title">Loan</p>
+                		
+                		<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                	<path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 7.29289C5.68342 6.90237 6.31658 6.90237 6.7071 7.29289L9.99999 10.5858L13.2929 7.29289C13.6834 6.90237 14.3166 6.90237 14.7071 7.29289C15.0976 7.68342 15.0976 8.31658 14.7071 8.70711L10.7071 12.7071C10.3166 13.0976 9.68341 13.0976 9.29289 12.7071L5.29289 8.70711C4.90237 8.31658 4.90237 7.68342 5.29289 7.29289Z" fill="#9CA3AF"></path>
+                </svg>
+                	</div>
+                		<div class="calculator-content-body col">
+                			<div class="input-wrapper row">
+                				<label class="checkbox">
+                					<input type="checkbox" class="checkbox__input" id="use-loan" checked onchange="relatedToggle(event, 'use-loan', 'disabled')" />
+                					<span class="checkbox__box"></span>
+                						<span class="checkbox__title">Use Loan</span>
+                				</label></div>
+                			<div class="input-wrapper row related-to-use-loan">
+                				<label class="input col   ">
+                					<p class="input__title">Down Payment</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="down_payment" value="20"  />
+                							<span class="input-field__hint">%</span>
+                					</div>
+                				
+                				
+                				</label>	<label class="input col   ">
+                					<p class="input__title">Interest Rate</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="interest_rate" value="6"  />
+                							<span class="input-field__hint">%</span>
+                					</div>
+                				
+                				
+                				</label></div>
+                			<div class="input-wrapper row related-to-use-loan">
+                				<label class="input col   ">
+                					<p class="input__title">Loan Term</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="loan_term" value="30"  />
+                							<span class="input-field__hint">years</span>
+                					</div>
+                				
+                				
+                				</label></div>
+                		</div>
+                </div>
+                
+                <div class="calculator-content calculator-content--options col   "  >
+                	<div class="calculator-content-head  row">
+                		<p class="calculator-content-head__title">Repairs</p>
+                		
+                		<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                	<path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 7.29289C5.68342 6.90237 6.31658 6.90237 6.7071 7.29289L9.99999 10.5858L13.2929 7.29289C13.6834 6.90237 14.3166 6.90237 14.7071 7.29289C15.0976 7.68342 15.0976 8.31658 14.7071 8.70711L10.7071 12.7071C10.3166 13.0976 9.68341 13.0976 9.29289 12.7071L5.29289 8.70711C4.90237 8.31658 4.90237 7.68342 5.29289 7.29289Z" fill="#9CA3AF"></path>
+                </svg>
+                	</div>
+                		<div class="calculator-content-body col">
+                			<div class="input-wrapper row">
+                				<label class="checkbox">
+                					<input type="checkbox" class="checkbox__input" id="need-repair"  onchange="relatedToggle(event, 'need-repair', 'disabled')" />
+                					<span class="checkbox__box"></span>
+                						<span class="checkbox__title">Need Repairs</span>
+                				</label></div>
+                			<div class="input-wrapper row related-to-need-repair disabled">
+                				<label class="input col   ">
+                					<p class="input__title">Repair Cost</p>
+                					<div class="input-field row">
+                							<span class="input-field__hint">$</span>
+                						<input type="text" class="input-field__input" placeholder="0"  id="repair_cost" value="30000"  />
+                					</div>
+                				
+                				
+                				</label>	<label class="input col   ">
+                					<p class="input__title">Value after Repairs</p>
+                					<div class="input-field row">
+                							<span class="input-field__hint">$</span>
+                						<input type="text" class="input-field__input" placeholder="0"  id="after_repair" value="320000"  />
+                					</div>
+                				
+                				
+                				</label></div>
+                		</div>
+                </div>
+                
+                <div class="calculator-content calculator-content--options col   "  >
+                	<div class="calculator-content-head  row">
+                		<p class="calculator-content-head__title">Income</p>
+                		
+                		<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                	<path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 7.29289C5.68342 6.90237 6.31658 6.90237 6.7071 7.29289L9.99999 10.5858L13.2929 7.29289C13.6834 6.90237 14.3166 6.90237 14.7071 7.29289C15.0976 7.68342 15.0976 8.31658 14.7071 8.70711L10.7071 12.7071C10.3166 13.0976 9.68341 13.0976 9.29289 12.7071L5.29289 8.70711C4.90237 8.31658 4.90237 7.68342 5.29289 7.29289Z" fill="#9CA3AF"></path>
+                </svg>
+                	</div>
+                		<div class="calculator-content-body col">
+                			<div class="input-wrapper row">
+                				<label class="input col   ">
+                					<p class="input__title">Rental Price</p>
+                					<div class="input-field row">
+                							<span class="input-field__hint">$</span>
+                						<input type="text" class="input-field__input" placeholder="0"  id="rental_price" value="2200"  />
+                							<span class="input-field__hint">/months</span>
+                					</div>
+                				
+                				
+                				</label>	<label class="input col   ">
+                					<p class="input__title">Annual Increase</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="annual_increase" value="3"  />
+                							<span class="input-field__hint">%</span>
+                					</div>
+                				
+                				
+                				</label></div>
+                			<div class="input-wrapper row">
+                				<label class="input col   ">
+                					<p class="input__title">Other Income</p>
+                					<div class="input-field row">
+                							<span class="input-field__hint">$</span>
+                						<input type="text" class="input-field__input" placeholder="0"  id="other_income" value=""  />
+                							<span class="input-field__hint">/months</span>
+                					</div>
+                				
+                				
+                				</label>	<label class="input col   ">
+                					<p class="input__title">Annual Increase</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="annual_increase_2" value="3"  />
+                							<span class="input-field__hint">%</span>
+                					</div>
+                				
+                				
+                				</label></div>
+                			<div class="input-wrapper row">
+                				<label class="input col   ">
+                					<p class="input__title">Vacancy Rate</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="vacancy_rate" value="5"  />
+                							<span class="input-field__hint">%</span>
+                					</div>
+                				
+                				
+                				</label>	<label class="input col   ">
+                					<p class="input__title">Management Fee</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="management_fee" value=""  />
+                							<span class="input-field__hint">%</span>
+                					</div>
+                				
+                				
+                				</label></div>
+                		</div>
+                </div>
+                
+                <div class="calculator-content calculator-content--options col   "  >
+                	<div class="calculator-content-head  row">
+                		<p class="calculator-content-head__title">Recurring Operating Expenses</p>
+                		
+                		<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                	<path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 7.29289C5.68342 6.90237 6.31658 6.90237 6.7071 7.29289L9.99999 10.5858L13.2929 7.29289C13.6834 6.90237 14.3166 6.90237 14.7071 7.29289C15.0976 7.68342 15.0976 8.31658 14.7071 8.70711L10.7071 12.7071C10.3166 13.0976 9.68341 13.0976 9.29289 12.7071L5.29289 8.70711C4.90237 8.31658 4.90237 7.68342 5.29289 7.29289Z" fill="#9CA3AF"></path>
+                </svg>
+                	</div>
+                		<div class="calculator-content-body col">
+                			<div class="input-wrapper row">
+                				<label class="input col   ">
+                					<p class="input__title">Property Tax</p>
+                					<div class="input-field row">
+                							<span class="input-field__hint">$</span>
+                						<input type="text" class="input-field__input" placeholder="0"  id="property_tax" value="3000"  />
+                					</div>
+                				
+                				
+                				</label>	<label class="input col   ">
+                					<p class="input__title">Annual Increase</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="annual_increase_3" value="3"  />
+                							<span class="input-field__hint">%</span>
+                					</div>
+                				
+                				
+                				</label></div>
+                			<div class="input-wrapper row">
+                				<label class="input col   ">
+                					<p class="input__title">Total Insurance</p>
+                					<div class="input-field row">
+                							<span class="input-field__hint">$</span>
+                						<input type="text" class="input-field__input" placeholder="0"  id="total_insurance" value="1500"  />
+                					</div>
+                				
+                				
+                				</label>	<label class="input col   ">
+                					<p class="input__title">Annual Increase</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="annual_increase_4" value="3"  />
+                							<span class="input-field__hint">%</span>
+                					</div>
+                				
+                				
+                				</label></div>
+                			<div class="input-wrapper row">
+                				<label class="input col   ">
+                					<p class="input__title">HOA Fee</p>
+                					<div class="input-field row">
+                							<span class="input-field__hint">$</span>
+                						<input type="text" class="input-field__input" placeholder="0"  id="hoa_fee" value=""  />
+                					</div>
+                				
+                				
+                				</label>	<label class="input col   ">
+                					<p class="input__title">Annual Increase</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="annual_increase_5" value="3"  />
+                							<span class="input-field__hint">%</span>
+                					</div>
+                				
+                				
+                				</label></div>
+                			<div class="input-wrapper row">
+                				<label class="input col   ">
+                					<p class="input__title">Maintenance</p>
+                					<div class="input-field row">
+                							<span class="input-field__hint">$</span>
+                						<input type="text" class="input-field__input" placeholder="0"  id="maintenance" value="2500"  />
+                					</div>
+                				
+                				
+                				</label>	<label class="input col   ">
+                					<p class="input__title">Annual Increase</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="annual_increase_6" value="3"  />
+                							<span class="input-field__hint">%</span>
+                					</div>
+                				
+                				
+                				</label></div>
+                			<div class="input-wrapper row">
+                				<label class="input col   ">
+                					<p class="input__title">Other Costs</p>
+                					<div class="input-field row">
+                							<span class="input-field__hint">$</span>
+                						<input type="text" class="input-field__input" placeholder="0"  id="other_taxes" value="500"  />
+                					</div>
+                				
+                				
+                				</label>	<label class="input col   ">
+                					<p class="input__title">Annual Increase</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="annual_increase_7" value="3"  />
+                							<span class="input-field__hint">%</span>
+                					</div>
+                				
+                				
+                				</label></div>
+                		</div>
+                </div>
+                
+                <div class="calculator-content calculator-content--options col   "  >
+                	<div class="calculator-content-head  row">
+                		<p class="calculator-content-head__title">Sell</p>
+                		
+                		<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                	<path fill-rule="evenodd" clip-rule="evenodd" d="M5.29289 7.29289C5.68342 6.90237 6.31658 6.90237 6.7071 7.29289L9.99999 10.5858L13.2929 7.29289C13.6834 6.90237 14.3166 6.90237 14.7071 7.29289C15.0976 7.68342 15.0976 8.31658 14.7071 8.70711L10.7071 12.7071C10.3166 13.0976 9.68341 13.0976 9.29289 12.7071L5.29289 8.70711C4.90237 8.31658 4.90237 7.68342 5.29289 7.29289Z" fill="#9CA3AF"></path>
+                </svg>
+                	</div>
+                		<div class="calculator-content-body col">
+                			<div class="input-wrapper row">
+                				<label class="checkbox">
+                					<input type="checkbox" class="checkbox__input" id="selling-price"  onchange="relatedToggle(event, 'selling-price')" />
+                					<span class="checkbox__box"></span>
+                						<span class="checkbox__title">Known Selling Price</span>
+                				</label></div>
+                			<div class="input-wrapper row related-to-selling-price-a">
+                				<label class="input col   ">
+                					<p class="input__title">Value Appreciation</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="value_appreciation" value="4"  />
+                							<span class="input-field__hint">% per year</span>
+                					</div>
+                				
+                				
+                				</label></div>
+                			<div class="input-wrapper row related-item-hidden related-to-selling-price-b">
+                				<label class="input col   ">
+                					<p class="input__title">Selling Price</p>
+                					<div class="input-field row">
+                							<span class="input-field__hint">$</span>
+                						<input type="text" class="input-field__input" placeholder="0"  id="selling_price" value="500000"  />
+                					</div>
+                				
+                				
+                				</label></div>
+                			<div class="input-wrapper row">
+                				<label class="input col   ">
+                					<p class="input__title">Holding Length</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="holding_length" value="20"  />
+                							<span class="input-field__hint">years</span>
+                					</div>
+                				
+                				
+                				</label>	<label class="input col   ">
+                					<p class="input__title">Cost to Sell</p>
+                					<div class="input-field row">
+                						<input type="text" class="input-field__input" placeholder="0"  id="cost_sell" value="8"  />
+                							<span class="input-field__hint">%</span>
+                					</div>
+                				
+                				
+                				</label></div>
+                		</div>
+                </div>
+                
+                <div class="calculator-content calculator-content--gray calculator-content--footer calculator-content--small row  " >
+                
+                
+                
+                
+                	<button class="button button--primary ml-auto" onclick="calculate(this)">Calculate</button>
+                </div>
+                
+                	<script type="text/javascript" src="./assets/js/chart.js" id="chartjs_script"></script>
+                
+                
+                
+                	<script type="text/javascript" src="./assets/js/calculator.js"></script>
+            </div>
+        </div>
+    </div>
+    <div style="float:left;padding: 15px; overflow: scroll;">
+        <div class="calculator-result calculator-result--error col" id="error-box">
+        	<div class="row">
+        		<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        	<path fill-rule="evenodd" clip-rule="evenodd" d="M10 18C14.4183 18 18 14.4183 18 10C18 5.58172 14.4183 2 10 2C5.58172 2 2 5.58172 2 10C2 14.4183 5.58172 18 10 18ZM8.70711
+        						7.29289C8.31658 6.90237 7.68342 6.90237 7.29289 7.29289C6.90237 7.68342 6.90237 8.31658 7.29289 8.70711L8.58579 10L7.29289 11.2929C6.90237 11.6834 6.90237 12.3166 7.29289
+        						12.7071C7.68342 13.0976 8.31658 13.0976 8.70711 12.7071L10 11.4142L11.2929 12.7071C11.6834 13.0976 12.3166 13.0976 12.7071 12.7071C13.0976 12.3166 13.0976 11.6834 12.7071
+        						11.2929L11.4142 10L12.7071 8.70711C13.0976 8.31658 13.0976 7.68342 12.7071 7.29289C12.3166 6.90237 11.6834 6.90237 11.2929 7.29289L10 8.58579L8.70711 7.29289Z" fill="#F87171" class="dark:fill-red-200"></path>
+        </svg>
+        		<p class="calculator-error__title">There was an error with your calculation.</p>
+        	</div>
+        	<div class="col" id="error-list">
+        	</div>
+        </div>        <span id="calculator_result"><style>
+    .chart-wrapper--donut {
+		max-width: 416px;
+	}
+	.result-chart--red {
+		background-color: #3D1D1D;
+	}
+	.result-chart--green {
+		background-color: #059669;
+	}
+	.result-chart--pink {
+		background-color: #DB2777;
+	}
+	.result-chart--indigo {
+		background-color: #5045E5;
+	}
+</style>
+<div class="calculator-result col">
+	<p class="table-cell table-cell--table-dark table-cell--only-title">Result</p>
+	<div class="row row--wrap">
+		<div class="result-table__wrapper">
+			<table class="result-table">
+				<thead>
+					<tr>
+						<th class="medium border-radius-top-left">Return (IRR)</th>
+						<td class="border-right" id="irr">16.19%</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<th class="medium">Total Profit when Sold</th>
+						<td class="border-right" id="total-profit">$523,547.85</td>
+					</tr>
+					<tr>
+						<th class="medium ">Cash on Cash Return</th>
+						<td class="border-right" id="cash-on-return">918.5%</td>
+					</tr>
+					<tr>
+						<th class="medium ">Capitalization Rate</th>
+						<td class="border-right" id="cap-rate">7.03%</td>
+					</tr>
+					<tr>
+						<th class="medium ">Total Rental Income</th>
+						<td class="border-right" id="total-income">$673,908.99</td>
+					</tr>
+					<tr>
+						<th class="medium ">Total Mortgage Payments</th>
+						<td class="border-right" id="total-mortgage">$287,784.00</td>
+					</tr>
+					<tr>
+						<th class="medium ">Total Expenses</th>
+						<td class="border-right" id="total-expenses">$201,527.81</td>
+					</tr>
+					<tr>
+						<th class="medium ">Total Net Operating Income</th>
+						<td class="border-right" id="noi">$472,381.18</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="chart-wrapper chart-wrapper--donut chart-wrapper--donut-row">
+			<canvas id="chartDonutBigger" class="chart chart--donut chart--donut-bigger" width="280px" height="280px"></canvas>
+			<div class="chart__donut-legend chart__donut-legend--col">
+				<div class="chart__donut-legend-item">
+					<div class="result-chart result-chart--yellow"></div>
+					<p class="result-text result-text--small">Mortgage</p>
+				</div>
+				<div class="chart__donut-legend-item">
+					<div class="result-chart result-chart--purple"></div>
+					<p class="result-text result-text--small">Vacancy</p>
+				</div>
+				<div class="chart__donut-legend-item">
+					<div class="result-chart result-chart--red"></div>
+					<p class="result-text result-text--small">Management</p>
+				</div>
+				<div class="chart__donut-legend-item">
+					<div class="result-chart result-chart--green"></div>
+					<p class="result-text result-text--small">Property Tax</p>
+				</div>
+				<div class="chart__donut-legend-item">
+					<div class="result-chart result-chart--indigo"></div>
+					<p class="result-text result-text--small">Insurance</p>
+				</div>
+				<div class="chart__donut-legend-item">
+					<div class="result-chart result-chart--sky"></div>
+					<p class="result-text result-text--small">HOA</p>
+				</div>
+				<div class="chart__donut-legend-item">
+					<div class="result-chart result-chart--pink"></div>
+					<p class="result-text result-text--small">Maintenance</p>
+				</div>
+				<div class="chart__donut-legend-item">
+					<div class="result-chart result-chart--teal"></div>
+					<p class="result-text result-text--small">Other Cost</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="result-table__wrapper">
+		<table class="result-table">
+			<thead class="dark">
+				<tr>
+					<th class="dark indigo" colspan="3">FIRST YEAR INCOME AND EXPENSE</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th></th>
+					<th class="indigo">MONTHLY</th>
+					<th class="indigo">ANNUAL</th>
+				</tr>
+				<tr>
+					<th>Income</th>
+					<td id="income-result-month">$2,200.00</td>
+					<td id="income-result-annual">$26,400.00</td>
+				</tr>
+				<tr>
+					<th>Mortgage Pay</th>
+					<td id="mortgage-result-month">$1,199.10</td>
+					<td id="mortgage-result-annual">$14,389.20</td>
+				</tr>
+				<tr>
+					<th>Vacancy</th>
+					<td id="vacancy-result-month">$110.00</td>
+					<td id="vacancy-result-annual">$1,320.00</td>
+				</tr>
+				<tr>
+					<th>Management Fee</th>
+					<td id="management-result-month">$0.00</td>
+					<td id="management-result-annual">$0.00</td>
+				</tr>
+				<tr>
+					<th>Property Tax</th>
+					<td id="property-tax-result-month">$250.00</td>
+					<td id="property-tax-result-annual">$3,000.00</td>
+				</tr>
+				<tr>
+					<th>Total Insurance</th>
+					<td id="insurance-result-month">$125.00</td>
+					<td id="insurance-result-annual">$1,500.00</td>
+				</tr>
+				<tr>
+					<th>HOA</th>
+					<td id="hoa-result-month">$0.00</td>
+					<td id="hoa-result-annual">$0.00</td>
+				</tr>
+				<tr>
+					<th>Maintenance Cost</th>
+					<td id="maintenance-result-month">$208.33</td>
+					<td id="maintenance-result-annual">$2,500.00</td>
+				</tr>
+				<tr>
+					<th>Other Cost</th>
+					<td id="other-tax-result-month">$41.67</td>
+					<td id="other-tax-result-annual">$500.00</td>
+				</tr>
+				<tr>
+					<th>Cash Flow</th>
+					<td id="cashflow-result-month">$265.90</td>
+					<td id="cashflow-result-annual">$3,190.80</td>
+				</tr>
+				<tr>
+					<th>Net Operating Income (NOI)</th>
+					<td id="noi-result-month">$1,465.00</td>
+					<td id="noi-result-annual">$17,580.00</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- <script src="./assets/js/chart.js"./assets/js/chart.js').then(e => switchTheme = e.default)
+</script> -->
+</span>
+    </div>
+</div>
+
+<script async src="./assets/js/lib/math.min.js"></script>
+<script defer src="./assets/js/functions.js"></script>
+
+</body>
+</html>

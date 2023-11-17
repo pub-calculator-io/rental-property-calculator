@@ -75,6 +75,7 @@ import("./assets/js/lib/chartjs/chart.js").then((e) => {
 		plugins: {
 			tooltip: {
 				enabled: false,
+				position: 'average'
 			},
 			legend: {
 				display: false,
@@ -94,18 +95,12 @@ import("./assets/js/lib/chartjs/chart.js").then((e) => {
 
 			data.datasets[0].data.forEach((datapoint, index) => {
 				const { x, y } = chart.getDatasetMeta(0).data[index].tooltipPosition();
-
-				let textXPosition = x >= 140 ? 'left' : 'right';
-
-				let xLine = x >= 140 ? x + 40 : x - 40;
-				let yLine = y >= 140 ? y + 40 : y - 40;
-
+				ctx.textAlign = 'center';
 				ctx.font = '14px Inter';
-				ctx.textAlign = textXPosition;
-				ctx.fillStyle = colors[theme].textColor;
+				ctx.fillStyle = '#fff';
 				ctx.textBaseline = 'middle';
-
-				ctx.fillText(`${datapoint}%`, xLine, yLine);
+				let toolTipText = datapoint != '0' ? datapoint + '%' : '';
+				ctx.fillText(toolTipText, x, y);
 			});
 		},
 	};
@@ -134,18 +129,12 @@ import("./assets/js/lib/chartjs/chart.js").then((e) => {
 
 				data.datasets[0].data.forEach((datapoint, index) => {
 					const { x, y } = chart.getDatasetMeta(0).data[index].tooltipPosition();
-
-					let textXPosition = x >= 140 ? 'left' : 'right';
-
-					let xLine = x >= 140 ? x + 40 : x - 40;
-					let yLine = y >= 140 ? y + 40 : y - 40;
-
+					ctx.textAlign = 'center';
 					ctx.font = '14px Inter';
-					ctx.textAlign = textXPosition;
-					ctx.fillStyle = colors[theme].textColor;
+					ctx.fillStyle = '#fff';
 					ctx.textBaseline = 'middle';
-
-					ctx.fillText(`${datapoint}%`, xLine, yLine);
+					let toolTipText = datapoint != '0' ? datapoint + '%' : '';
+					ctx.fillText(toolTipText, x, y);
 				});
 			},
 		};
@@ -165,7 +154,7 @@ import("./assets/js/lib/chartjs/chart.js").then((e) => {
 
 	window.changeChartData = function(values) {
 		donutBig.data.datasets[0].data = values
-		donutBig.data.datasets[0].labels = values.map(value => `${value}%`)
+		donutBig.data.datasets[0].labels = values.map(value =>  `${value}%`)
 		donutBig.update()
 	}
 

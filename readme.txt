@@ -1,4 +1,4 @@
-=== Rental Property Calculator by www.calculator.io ===
+=== CI Rental property calculator ===
 Contributors: calculatorio
 Tags: rental property calculator, real estate investment analysis, rental income calculation, property management metrics, real estate appreciation, operating expenses estimation, 50% rule in rental properties, 1% rental income rule, internal rate of return (IRR) analysis, capitalization rate (cap rate) evaluation
 Requires at least: 5.0

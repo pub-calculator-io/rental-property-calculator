@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Rental Property Calculator by www.calculator.io
+Plugin Name: CI Rental property calculator
 Plugin URI: https://www.calculator.io/rental-property-calculator/
 Description: Free rental property calculator that uses the formula NPV = [CF^1 / (1 + R^1)] - PC. A rental ROI calculator that helps analyze and compare investment rental properties.
 Version: 1.0.0

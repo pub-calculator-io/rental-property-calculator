@@ -7,7 +7,7 @@ Free rental property calculator that uses the formula NPV = [CF^1 / (1 + R^1)] -
 
 ## Installation
 
-1. [Download](https://github.com/pub-calculator-io/age-calculator/archive/refs/heads/master.zip) the ZIP file of this repository.
+1. [Download](https://github.com/pub-calculator-io/rental-property-calculator/archive/refs/heads/master.zip) the ZIP file of this repository.
 2. Upload the /rental-property-calculator-master/ folder to the /wp-content/plugins/ directory.
 3. Activate the [Rental Property Calculator](https://www.calculator.io/rental-property-calculator/ "Rental Property Calculator Homepage") plugin through the "Plugins" menu in WordPress.
 

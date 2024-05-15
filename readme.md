@@ -1,9 +1,8 @@
 # Rental Property Calculator Widget for WordPress
 
-Free rental property calculator that uses the formula NPV = [CF^1 / (1 + R^1)] - PC. A rental ROI calculator that helps analyze and compare investment rental properties.
+Free rental property calculator that uses the formula NPV = [CF¹ / (1 + R¹)] - PC. A rental ROI calculator that helps analyze and compare investment rental properties.
 
 ![Rental Property Calculator Input Form](/assets/images/screenshot-1.png "Rental Property Calculator Input Form")
-![Rental Property Calculator Calculation Results](/assets/images/screenshot-2.png "Rental Property Calculator Calculation Results")
 
 ## Installation
 

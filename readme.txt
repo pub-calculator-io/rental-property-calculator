@@ -7,7 +7,7 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Free rental property calculator that uses the formula NPV = [CF^1 / (1 + R^1)] - PC. A rental ROI calculator that helps analyze and compare investment rental properties.
+Free rental property calculator that uses the formula NPV = [CF¹ / (1 + R¹)] - PC. A rental ROI calculator that helps analyze and compare investment rental properties.
 
 [https://www.calculator.io/rental-property-calculator/](https://www.calculator.io/rental-property-calculator/)
 
@@ -24,7 +24,6 @@ Add the following code to your template where you would like the Rental Property
 == Screenshots ==
 
 1. The Rental Property Calculator Input Form.
-2. The Rental Property Calculator Calculation Results.
 
 == Installation ==
 

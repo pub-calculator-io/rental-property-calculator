@@ -39,18 +39,18 @@ function calculate(){
 
 	if(useLoan) {
 		if(!interest) {
-			input.error('interest_rate', 'Please enter interest rate')
+			input.error('interest_rate', 'Enter the interest rate')
 		}
 		if(!years) {
-			input.error('loan_term', 'Please enter loan term')
+			input.error('loan_term', 'Enter the loan term')
 		}
 	}
 	if(needRepair) {
 		if(!repairCost) {
-			input.error('repair_cost', 'Please enter repair cost')
+			input.error('repair_cost', 'Enter the repair cost')
 		}
 		if(!afterRepair) {
-			input.error('after_repair', 'Please enter value after repair')
+			input.error('after_repair', 'Enter the value after repair')
 		}
 	}
 	if(!input.valid()) return false;
